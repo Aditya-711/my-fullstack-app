@@ -48,5 +48,5 @@ jobs:
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v2
         with:
-          project_id: YOUR_PROJECT_ID   # replace with acttual GCP project
+          project_id: myidpproject-469612   # replace with acttual GCP project
           deliverables: spring-boot-server/target/*.jar
