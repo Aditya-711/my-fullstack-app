@@ -38,6 +38,9 @@ jobs:
       - name: Build Spring Boot App
         working-directory: spring-boot-server
         run: mvn clean package -DskipTests
+    
+      - name: Verify Build Artifact
+        run: ls -R spring-boot-server
 
       # ---------- GCP DEPLOY ----------
       - name: Authenticate with Google Cloud
