@@ -52,7 +52,7 @@ jobs:
         uses: google-github-actions/deploy-appengine@v2
         with:
           project_id: myidpproject-469612   # replace with acttual GCP project
-          deliverables: spring-boot-server/target/*.jar
+          deliverables: spring-boot-server/target/spring-boot-data-jpa-0.0.1-SNAPSHOT.jar
           promote: true
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
