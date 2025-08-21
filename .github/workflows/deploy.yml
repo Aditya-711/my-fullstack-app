@@ -3,7 +3,7 @@ name: Build & Deploy to GAE
 on:
   push:
     branches:
-      - main   # deploy only when pushing to main branch
+      - master   # deploy only when pushing to main branch
 
 jobs:
   build-and-deploy:
