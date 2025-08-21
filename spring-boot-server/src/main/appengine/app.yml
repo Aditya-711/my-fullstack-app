@@ -1,0 +1,17 @@
+# In spring-boot-server/src/main/appengine/app.yaml
+
+runtime: java17 # Or java11
+instance_class: F1 # The cheapest, good for testing
+
+# This tells App Engine how to start your Spring Boot application
+entrypoint: 'java -jar spring-boot-data-jpa-0.0.1-SNAPSHOT.jar'
+
+# Recommended for Spring Boot apps to improve startup time
+automatic_scaling:
+  min_instances: 0
+  max_instances: 2
+
+# Allow all traffic
+handlers:
+- url: /.*
+  script: this field is required, but ignored
