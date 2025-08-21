@@ -1,0 +1,52 @@
+name: Build & Deploy to GAE
+
+on:
+  push:
+    branches:
+      - main   # deploy only when pushing to main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # ---------- FRONTEND BUILD ----------
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Build frontend
+        working-directory: react-client
+        run: |
+          npm install
+          npm run build
+          # Copy frontend build into Spring Boot resources/static
+          rm -rf ../spring-boot-server/src/main/resources/static/*
+          cp -r build/* ../spring-boot-server/src/main/resources/static/ 
+
+      # ---------- BACKEND BUILD ----------
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Spring Boot App
+        working-directory: spring-boot-server
+        run: mvn clean package -DskipTests
+
+      # ---------- GCP DEPLOY ----------
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy to App Engine
+        uses: google-github-actions/deploy-appengine@v2
+        with:
+          project_id: YOUR_PROJECT_ID   # replace with actual GCP project
+          deliverables: spring-boot-server/target/*.jar
