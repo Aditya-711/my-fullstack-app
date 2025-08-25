@@ -1,9 +1,24 @@
 name: Build & Deploy to GAE
 
 on:
-  push:
-    branches:
-      - master   # deploy only when pushing to main branch
+  workflow_dispatch:
+   inputs:
+      choose_repository:
+        required: false
+        description: "Chooses which repositories workflow to run"
+        type: string
+      port_context:
+        required: false
+        description: "Details about the action and general context (blueprint, run id, etc...)"
+        type: string
+      hostname:
+        required: false
+        description: "hostnmae"
+        type: string
+      environment:
+        required: false
+        description: "production env"
+        type: string
 
 jobs:
   build-and-deploy:
@@ -56,3 +71,15 @@ jobs:
           promote: true
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+        
+      - name: Notify Port
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          baseUrl: https://api.getport.io
+          runId: ${{ fromJson(inputs.port_context).runId }}
+          logMessage: |
+            Application deployed successfully in Production environment. View it here http://${{fromJson(inputs.port_context).host}}:3000
+          status: SUCCESS
