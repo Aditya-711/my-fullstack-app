@@ -76,7 +76,7 @@ jobs:
           source: |
             react-client/build/** 
             spring-boot-server/target/spring-boot-data-jpa-0.0.1-SNAPSHOT.jar
-          target: /home/ubuntu/fullstk-app
+          target: "~/fullstk-app"
         
      - name: List build outputs
        run: |
