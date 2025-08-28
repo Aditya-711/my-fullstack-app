@@ -68,18 +68,18 @@ jobs:
        uses: appleboy/scp-action@v0.1.7
        with:
           host: ${{ fromJson(inputs.hostname)}}
-          username: ${{ secrets.EC2_USER }}
+          username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           source: |
             react-client/build/** 
             spring-boot-server/target/*.jar
-          target: /home/${{ secrets.EC2_USER }}/fullstk-app
+          target: /home/${{ secrets.EC2_USERNAME }}/fullstk-app
 
      - name: Restart services on EC2
        uses: appleboy/ssh-action@v0.1.10
        with:
           host: ${{ fromJson(inputs.hostname)}}
-          username: ${{ secrets.EC2_USER }}
+          username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
             # Deploy frontend
