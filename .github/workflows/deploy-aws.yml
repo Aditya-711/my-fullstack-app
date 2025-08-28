@@ -77,6 +77,11 @@ jobs:
             react-client/build/** 
             spring-boot-server/target/spring-boot-data-jpa-0.0.1-SNAPSHOT.jar
           target: /home/ubuntu/fullstk-app
+        
+     - name: List build outputs
+       run: |
+          ls -R react-client/build || echo "Frontend build missing"
+          ls -R spring-boot-server/target || echo "Backend JAR missing"
 
      - name: Restart services on EC2
        uses: appleboy/ssh-action@v0.1.10
