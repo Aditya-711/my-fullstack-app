@@ -99,9 +99,9 @@ jobs:
           script: |
             # Deploy frontend
             sudo rm -rf /var/www/frontend/*
-            sudo cp -r ~/fullstk-app/react-frontend/build/* /var/www/frontend/
+            sudo cp -r ~/fullstk-app/react-frontend/react-client/build/* /var/www/frontend/
             
             # Restart backend
             pkill -f 'java -jar' || true
-            nohup java -jar ~/fullstk-app/spring-boot-backend/target/*.jar > backend.log 2>&1 &
+            nohup java -jar ~/fullstk-app/spring-boot-backend/spring-boot-server/target/*.jar > backend.log 2>&1 &
             echo "Deployment successful!"
