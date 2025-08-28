@@ -76,7 +76,7 @@ jobs:
           source: |
             react-client/build/** 
             spring-boot-server/target/spring-boot-data-jpa-0.0.1-SNAPSHOT.jar
-          target: /home/${{ secrets.EC2_USERNAME }}/fullstk-app
+          target: /home/ubuntu/fullstk-app
 
      - name: Restart services on EC2
        uses: appleboy/ssh-action@v0.1.10
