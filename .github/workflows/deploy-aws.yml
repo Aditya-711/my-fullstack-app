@@ -66,17 +66,24 @@ jobs:
         ls -R spring-boot-server/target || echo "Backend JAR missing"
 
 
-      # ---------- DEPLOY ----------
-     - name: Copy files to EC2
+
+     - name: Copy frontend build to EC2
        uses: appleboy/scp-action@v0.1.7
        with:
-          host: ${{ inputs.hostname}}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_KEY }}
-          source: |
-            react-client/build/** 
-            spring-boot-server/target/spring-boot-data-jpa-0.0.1-SNAPSHOT.jar
-          target: "~/fullstk-app"
+         host: ${{ inputs.hostname }}
+         username: ${{ secrets.EC2_USERNAME }}
+         key: ${{ secrets.EC2_KEY }}
+         source: react-client/build/**
+         target: /home/${{ secrets.EC2_USERNAME }}/fullstk-app/react-frontend
+
+     - name: Copy backend JAR to EC2
+       uses: appleboy/scp-action@v0.1.7
+       with:
+        host: ${{ inputs.hostname }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        source: spring-boot-server/target/spring-boot-data-jpa-0.0.1-SNAPSHOT.jar
+        target: /home/${{ secrets.EC2_USERNAME }}/fullstk-app/spring-boot-backend
         
      - name: List build outputs
        run: |
