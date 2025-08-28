@@ -62,10 +62,10 @@ jobs:
       
      - name: List build outputs
        run: |
-        ls -R react-frontend/build || echo "Frontend build missing"
+        ls -R react-client/build || echo "Frontend build missing"
         ls -R spring-boot-server/target || echo "Backend JAR missing"
 
-        
+
       # ---------- DEPLOY ----------
      - name: Copy files to EC2
        uses: appleboy/scp-action@v0.1.7
