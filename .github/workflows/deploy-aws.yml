@@ -67,7 +67,7 @@ jobs:
      - name: Copy files to EC2
        uses: appleboy/scp-action@v0.1.7
        with:
-          host: ${{ fromJson(inputs.hostname)}}
+          host: ${{ inputs.hostname}}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           source: |
@@ -78,7 +78,7 @@ jobs:
      - name: Restart services on EC2
        uses: appleboy/ssh-action@v0.1.10
        with:
-          host: ${{ fromJson(inputs.hostname)}}
+          host: ${{inputs.hostname}}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
