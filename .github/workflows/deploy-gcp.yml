@@ -66,6 +66,12 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
+          
+      - name: Get App Engine URL
+        id: get-url
+        run: |
+          URL=$(gcloud app describe --format="value(defaultHostname)")
+          echo "GAE_URL=https://$URL" >> $GITHUB_ENV
 
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v2

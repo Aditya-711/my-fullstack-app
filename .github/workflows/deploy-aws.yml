@@ -100,10 +100,10 @@ jobs:
           baseUrl: https://api.getport.io
           runId: ${{ fromJson(inputs.port_context).runId }}
           logMessage: |
-            Application deployed successfully in Production environment. View it here http://${{fromJson(inputs.port_context).host}}:3000
+            Application deployed successfully in Production environment. View it here http://${{fromJson(inputs.port_context).host}}
           status: SUCCESS
 
-          
+
      - name: Restart services on EC2
        uses: appleboy/ssh-action@v0.1.10
        with:
