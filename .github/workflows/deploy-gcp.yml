@@ -91,5 +91,5 @@ jobs:
           baseUrl: https://api.getport.io
           runId: ${{ fromJson(inputs.port_context).runId }}
           logMessage: |
-            Application deployed successfully in Production environment. View it here http://${{ env.GAE_URL }}
+            Application deployed successfully in Production environment. View it here ${{ env.GAE_URL }}
           status: SUCCESS
