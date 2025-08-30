@@ -90,6 +90,20 @@ jobs:
           ls -R react-client/build || echo "Frontend build missing"
           ls -R spring-boot-server/target || echo "Backend JAR missing"
 
+
+     - name: Notify Port
+       uses: port-labs/port-github-action@v1
+       with: 
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          baseUrl: https://api.getport.io
+          runId: ${{ fromJson(inputs.port_context).runId }}
+          logMessage: |
+            Application deployed successfully in Production environment. View it here http://${{fromJson(inputs.port_context).host}}:3000
+          status: SUCCESS
+
+          
      - name: Restart services on EC2
        uses: appleboy/ssh-action@v0.1.10
        with:
