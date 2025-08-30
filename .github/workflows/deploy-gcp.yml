@@ -66,7 +66,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
-          
+
       - name: Get App Engine URL
         id: get-url
         run: |
@@ -91,5 +91,5 @@ jobs:
           baseUrl: https://api.getport.io
           runId: ${{ fromJson(inputs.port_context).runId }}
           logMessage: |
-            Application deployed successfully in Production environment. View it here http://${{fromJson(inputs.port_context).host}}:3000
+            Application deployed successfully in Production environment. View it here http://${{ env.GAE_URL }}
           status: SUCCESS
