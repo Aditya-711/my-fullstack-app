@@ -78,7 +78,7 @@ jobs:
         
       - name: Notify Port
         uses: port-labs/port-github-action@v1
-        with:
+        with: 
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           operation: PATCH_RUN
